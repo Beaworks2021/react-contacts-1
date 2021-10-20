@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "../App.css";
+import {connect} from 'react-redux'
+import {editUser} from "../actions/userActions"
 
 class UserInput extends Component {
   constructor(props) {
@@ -21,7 +23,7 @@ handleSave(e) {
       id: this.props.user.id,
     };
 
-    this.props.editUser(editUser, this.props.user.id);
+    this.props.editUser(this.props.user.id, editUser);
     this.props.toggleModal();
     //   this.props.addUser(user);
 
@@ -72,5 +74,8 @@ handleSave(e) {
     );
   }
 }
+const mapDispatchToProps = {
+  editUser
+}
 
-export default UserInput;
+export default connect(null, mapDispatchToProps)(UserInput)
