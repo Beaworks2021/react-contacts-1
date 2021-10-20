@@ -1,51 +1,49 @@
-
-import { useState } from "react";
+import React, { useState } from "react";
+import UserInput from "./component/UserInput";
+import UserList from "./component/UserList";
 import "./App.css";
-import Contact from "./component/Contact";
-import ContactForms from "./component/ContactForms";
+// import FuncUserForm from './component/FuncUserForm';
+// import FuncUserList from './component/FuncUserList';
 
 function App() {
-  //users state array
-  const [contacts, setContacts] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  //function to add new contact
-  function addContact(contact) {
-    setContacts([...contacts, contact]);
-  }
+  // function AddUser(user) {
+  //   setUsers([...users, user]);
+  // }
 
-  //function to delete contact
-  const handleDeleteContact = (contactId) => {
-    const filterContact = contacts.filter((contact) => {
-      return contactId !== contact.id;
+  //function to delete a user
+  function delectUser(userId) {
+    //loops through the users state and removes the user with the same id
+    const filteredList = users.filter((user) => {
+      return userId !== user.id;
     });
 
-    setContacts(filterContact);
-  };
+    //sets the users state to the filtered users array
+    setUsers(filteredList);
+  }
 
-  //function to edit saved contact
-  const handleEditContact = (newContact, contactId) => {
-    // change state and map through contact
-    setContacts(
-      contacts.map((contact) => {
-        if (contactId === contact.id) {
-          return newContact;
+  const editUser = (newUser, userId) => {
+    setUsers(
+      users.map((user) => {
+        if (userId === user.id) {
+          return newUser;
         } else {
-          return contact;
+          return user;
         }
       })
     );
   };
 
   return (
-    <div className="app-bg">
-      <div id="para">React Contact App</div>
-      <ContactForms inputDetail={addContact} />
-      <Contact
-        details={contacts}
-        deleteContact={handleDeleteContact}
-        editContact={handleEditContact}
-      />
-    </div>
+    <>
+      <div className="App">
+        <div className="container">
+          <UserInput/>
+          <UserList delectUser={delectUser} editUser={editUser} />
+        </div>
+      </div>
+    </>
   );
 }
 
