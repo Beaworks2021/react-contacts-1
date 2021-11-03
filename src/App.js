@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import UserInput from "./component/UserInput";
 import UserList from "./component/UserList";
-import "./App.css";
+import { getAllUsers } from "./actions/userActions";
+import { connect } from "react-redux";
+
 // import FuncUserForm from './component/FuncUserForm';
 // import FuncUserList from './component/FuncUserList';
 
-function App() {
+function App(props) {
   const [users, setUsers] = useState([]);
-
+  useEffect(() => {
+		props.getAllUsers();
+	}, []);
   // function AddUser(user) {
   //   setUsers([...users, user]);
   // }
@@ -46,5 +51,8 @@ function App() {
     </>
   );
 }
+const mapDispatchToProps = {
+	getAllUsers: getAllUsers,
+};
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
