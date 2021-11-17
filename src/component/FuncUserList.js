@@ -1,3 +1,6 @@
+import User from "./User";
+//import { Modal, Button } from "react-bootstrap";
+import { connect } from "react-redux";
 
 function FuncUserList(props) {
    
@@ -19,4 +22,10 @@ function FuncUserList(props) {
 }
 
 
-export default FuncUserList;
+const mapStateToProps = (state) => {
+    return {
+      users: state.users.users,
+    };
+  };
+  
+  export default connect(mapStateToProps)(FuncUserList);
